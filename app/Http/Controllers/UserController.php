@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Payment;
+use App\User;
 use Illuminate\Http\Request;
 
-class PaymentController extends Controller
+class UserController extends Controller
 {
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
+
 
     /**
      * Display a listing of the resource.
@@ -52,10 +48,10 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Payment  $payment
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Payment $payment)
+    public function show(User $user)
     {
         //
     }
@@ -63,10 +59,10 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Payment  $payment
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit(User $user)
     {
         //
     }
@@ -75,10 +71,10 @@ class PaymentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Payment  $payment
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -86,10 +82,10 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Payment  $payment
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payment $payment)
+    public function destroy(User $user)
     {
         //
     }
