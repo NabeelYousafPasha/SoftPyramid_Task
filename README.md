@@ -1,78 +1,278 @@
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Laravel
+## SoftPyramid Task 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The task is developed in PHP framework, Laravel i.e; v6
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Task can be found here](https://github.com/softpyramid/laravel-code-challenge).
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+#### Schema for the task: MYSQL
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<p align="center">
+<img src="https://raw.githubusercontent.com/NabeelYousafPasha/SoftPyramid_Task/master/public/softpyramid/softpyramid_task_db.png" width="400">
+</p>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### IDE used is: PHP STORM
 
-## Laravel Sponsors
+<p align="center">
+<img src="https://raw.githubusercontent.com/NabeelYousafPasha/SoftPyramid_Task/master/public/softpyramid/phpStorm.png" width="400">
+</p>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+#### TEST CASES using PHPUNIT
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+```php
 
-## Contributing
+<?php
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+namespace Tests\Feature\Transaction;
 
-## Code of Conduct
+use App\Transaction;
+use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+class TransactonTest extends TestCase
+{
+    use RefreshDatabase;
 
-## Security Vulnerabilities
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testBasicTest()
+    {
+        $response = $this->get('/');
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+        $response->assertStatus(200);
+    }
 
-## License
+    /**
+     * A basic test example.
+     * @test
+     * @return void
+     */
+    public function user_can_see_transactions_list()
+    {
+        $this->actingAs(factory(User::class)->create());
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+        $response = $this->get('/transactions')
+                    ->assertOk();
+    }
+
+    /**
+     * A basic test example.
+     * @test
+     * @return void
+     */
+    public function user_can_create_transaction()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $response = $this->post('/transactions', $this->data());
+
+        $this->assertCount(1, Transaction::all());
+    }
+
+
+    /**
+     * A basic test example.
+     * @test
+     * @return void
+     */
+    public function transaction_sales_date_is_required()
+    {
+        $response = $this->post('/transactions', array_merge($this->data(), ['transaction_sales_date' => null]));
+
+        $response->assertSessionHasErrors('transaction_sales_date');
+        $this->assertCount(0, Transaction::all());
+    }
+
+    /**
+     * A basic test example.
+     * @test
+     * @return void
+     */
+    public function transaction_sales_price_is_required()
+    {
+        $response = $this->post('/transactions', array_merge($this->data(), ['transaction_sales_price' => null]));
+
+        $response->assertSessionHasErrors('transaction_sales_price');
+        $this->assertCount(0, Transaction::all());
+    }
+
+
+    private function data()
+    {
+        return [
+            'transaction_detail' => 'Test Details',
+            'user_id' => 2,
+            'transaction_status' => 'draft',
+            'transaction_sales_date' => date('Y-m-d'),
+            'transaction_sales_price' => 1000,
+        ];
+    }
+}
+
+```
+
+#### For Validations: Form Requests
+
+
+### Payment Request
+```php
+
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class PaymentRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        $payment = $this->route('payment');
+        switch($this->method())
+        {
+            case 'GET':
+            case 'DELETE':
+                {
+                    return [];
+                }
+            case 'POST':
+                {
+                    $rules = [];
+                    $rules['payment_estimated_date'] = 'required|date';
+                    $rules['payment_estimated_amount'] = 'required|numeric';
+                    if (auth()->user()->hasRole('admin'))
+                    {
+                        $rules['payment_actual_date'] = 'required|date|after_or_equal:payment_estimated_date';
+                        $rules['payment_actual_amount'] = 'required|numeric|in:'.request()->payment_estimated_amount;
+                    }
+                    return $rules;
+                }
+            case 'PUT':
+            case 'PATCH':
+                {
+                    $rules = [];
+                    $rules = [
+                        'payment_estimated_date' => 'required|date',
+                        'payment_estimated_amount' => 'required|numeric',
+                    ];
+                    if (auth()->user()->hasRole('admin'))
+                    {
+                        $rules['payment_actual_date'] = 'required|date|after_or_equal:payment_estimated_date';
+                        $rules['payment_actual_amount'] = 'required|numeric|in:'.request()->payment_estimated_amount;
+                    }
+                    return $rules;
+                }
+            default:break;
+        }
+    }
+
+    public function attributes()
+    {
+        return [
+            'payment_estimated_date' => trans('lang.payments.payment_estimated_date'),
+            'payment_estimated_amount' => trans('lang.payments.payment_estimated_amount'),
+            'payment_actual_date' => trans('lang.payments.payment_actual_date'),
+            'payment_actual_amount' => trans('lang.payments.payment_actual_amount'),
+        ];
+    }
+}
+
+
+```
+
+### Transaction Request
+
+```php
+
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class TransactionRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        $transaction = $this->route('transaction');
+        switch($this->method())
+        {
+            case 'GET':
+            case 'DELETE':
+                {
+                    return [];
+                }
+            case 'POST':
+                {
+                    return [
+                        'transaction_detail' => 'required',
+                        'transaction_sales_date' => 'required|date',
+                        'transaction_sales_price' => 'required|numeric',
+                    ];
+                }
+            case 'PUT':
+            case 'PATCH':
+                {
+                    return [
+                        'transaction_detail' => 'required',
+                        'transaction_sales_date' => 'required|date',
+                        'transaction_sales_price' => 'required|numeric',
+                    ];
+                }
+            default:break;
+        }
+    }
+
+
+    public function attributes()
+    {
+        return [
+            'transaction_detail' => trans('lang.transaction.transaction_detail'),
+            'transaction_sales_date' => trans('lang.transaction.transaction_sales_date'),
+            'transaction_sales_price' => trans('lang.transaction.transaction_sales_price'),
+        ];
+    }
+}
+
+
+```
