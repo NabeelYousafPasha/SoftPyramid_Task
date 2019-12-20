@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->enum('transaction_status', ['draft', 'completed'])->default('draft');
             $table->date('transaction_sales_date');
-            $table->decimal('transaction_sales_price', 8, 2)->default(0);
+            $table->double('transaction_sales_price')->default(0);
             $table->softDeletes();
             $table->timestamps();
 

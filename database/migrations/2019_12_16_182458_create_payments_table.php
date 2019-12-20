@@ -16,10 +16,10 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('payment_estimated_date');
-            $table->decimal('payment_estimated_amount', 8, 2)->default(0);
+            $table->double('payment_estimated_amount')->default(0);
             $table->bigInteger('transaction_id')->unsigned();
             $table->date('payment_actual_date')->nullable();
-            $table->decimal('payment_actual_amount', 8, 2)->nullable();
+            $table->double('payment_actual_amount')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

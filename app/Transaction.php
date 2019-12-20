@@ -15,9 +15,13 @@ class Transaction extends Model
         'transaction_status',
         'transaction_sales_date',
         'transaction_sales_price',
+        'submitted_at',
+        'completed_at',
     ];
 
     protected $dates = [
+        'submitted_at',
+        'completed_at',
         'deleted_at',
         'created_at',
         'updated_at'
